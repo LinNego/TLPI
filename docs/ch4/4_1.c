@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
 			ptr = optarg;
 		}
 	}
-	int fd, nread, nwrite;
+	int fd, nread;
 	//printf("%o %o\n", O_TRUNC & is_append, O_TRUNC);
 	//printf("%o %o\n", O_APPEND & is_append, O_APPEND);
 	if((fd = open(ptr, O_WRONLY | O_CREAT | (O_TRUNC & is_append) | (O_APPEND & is_append), S_IRUSR | S_IWUSR)) == -1)  {
@@ -50,5 +50,6 @@ int main(int argc, char *argv[]) {
 		Write(STDOUT_FILENO, buf, nread) ;
 		Write(fd, buf, nread);
 	}
+	close(fd);
 	return 0;
 }
