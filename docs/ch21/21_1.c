@@ -7,6 +7,7 @@ void my_abort() {
 	pid_t pid = getpid();
 	kill(pid, SIGABRT);//向自身发送信号，理论上不会返回错误值
 	while(sigfillset(&blockset) == -1) continue;
+	while(sigdelset(&blockset, SIGABRT) == -1) continue;
 	while(sigprocmask(SIG_BLOCK, &blockset, &preset) == -1) continue;
 	/*运行到这里时，证明SIGABRT已经执行完，剩下的就是刷新缓冲区和退出进程*/
 	/*所以阻塞所有信号,虽然有些信号阻塞也没用，但通常不能阻塞的信号是退出程序的信号*/
