@@ -14,9 +14,9 @@ void my_abort() {
 	/*上述个人理解*/
 	/*如果返回的是-1，exit()调用失败*/
 	struct sigaction act;
-	act.sa_handler = SIG_DEL;
+	act.sa_handler = SIG_DFL;
 	sigaction(SIGABRT, &act, NULL);
-	kill(pid, SIGARBT);
+	kill(pid, SIGABRT);
 }
 
 int main() {
