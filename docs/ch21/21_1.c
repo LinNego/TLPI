@@ -3,6 +3,7 @@
 #include "tlpi_hdr.h"
 //调用abort()意味着想要达到结果是退出程序，或者是捕获了SIGARRT信号并调用了非本地跳转的函数
 void my_abort() {
+    //有可能有bug
 	sigset_t blockset, preset;
 	pid_t pid = getpid();
 	kill(pid, SIGABRT);//向自身发送信号，理论上不会返回错误值
