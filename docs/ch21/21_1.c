@@ -20,8 +20,17 @@ void my_abort() {
 	kill(pid, SIGABRT);
 }
 
+void handler(int sig) {
+	printf("SIGABRT处理\n");
+}
+
 int main() {
 	printf("运行\n");
+	struct sigaction act;
+	act.sa_handler = handler;
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = 0;
+	if(sigaction(SIGABRT, &act, NULL) == -1) printf("sig错误\n");
 	my_abort();
 	printf("不应该运行到这里\n");
 	return -1;
